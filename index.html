@@ -4,7 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="description" content="JUD : le business décodé, une marque par semaine, à lire en scrollant.">
-<style>html{-webkit-text-size-adjust:100%}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<style>html{-webkit-text-size-adjust:100%}body{margin:0}img{max-width:100%}[hidden]{display:none!important}.legal{padding-block:10vh 6vh;display:grid;gap:18px;max-width:720px}
+.legal h1{font-size:clamp(1.8rem,5vw,2.6rem)}
+.legal h2{font-size:1.1rem;font-weight:700;margin-top:14px}
+.legal p,.legal li{color:var(--soft);line-height:1.65;font-size:.95rem}
+.legal ul{padding-left:1.2em;display:grid;gap:6px}
+.foot{border-top:1px solid var(--line);padding-block:26px 40px}
+.foot .wrap{display:flex;flex-wrap:wrap;gap:10px 22px;justify-content:space-between;font-family:var(--font-data);font-size:.75rem;color:var(--muted)}
+.foot a{color:var(--muted)}
+</style>
 <title>JUD Business Décodé</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
@@ -441,6 +449,37 @@ a.card:hover{border-color:var(--orange)}
   </div>
 </main>
 
+<main id="view-legal" class="pad" hidden>
+  <div class="wrap legal">
+    <h1>Mentions légales et confidentialité</h1>
+
+    <h2>Éditeur du site</h2>
+    <p>JUD est un site personnel, édité à titre non professionnel par un particulier. Conformément à l'article 6-III-2 de la loi pour la confiance dans l'économie numérique (LCEN), l'identité de l'éditeur a été communiquée à l'hébergeur. Contact : réponds à n'importe quel email de la newsletter, ou écris sur X à @lepapadenils.</p>
+
+    <h2>Hébergement</h2>
+    <p>Netlify, Inc., 512 2nd Street, Suite 200, San Francisco, CA 94107, États-Unis — netlify.com.</p>
+
+    <h2>Newsletter</h2>
+    <p>Quand tu t'inscris, ton adresse email est collectée et envoyée à Beehiiv, Inc. (États-Unis), l'outil qui envoie la newsletter. Elle sert uniquement à t'envoyer la newsletter JUD. Base légale : ton consentement. Tu peux te désinscrire à tout moment avec le lien présent en bas de chaque email. Tes données sont alors supprimées de la liste d'envoi.</p>
+
+    <h2>Mesure d'audience</h2>
+    <p>Ce site utilise GoatCounter, un outil de statistiques respectueux de la vie privée. Il ne dépose aucun cookie, ne crée aucun profil et ne conserve pas ton adresse IP. Il compte seulement les pages vues, la provenance de la visite (site référent), le pays, le type d'appareil et la taille de l'écran. Ces données sont anonymes et servent à savoir combien de personnes lisent le site. Aucun bandeau de consentement n'est nécessaire.</p>
+
+    <h2>Tes droits</h2>
+    <p>Conformément au RGPD, tu peux demander l'accès, la rectification ou la suppression de tes données, en écrivant à l'adresse de contact ci-dessus. Tu peux aussi introduire une réclamation auprès de la CNIL (cnil.fr).</p>
+
+    <h2>Propriété intellectuelle</h2>
+    <p>Les textes, graphiques et animations du site sont la propriété de l'éditeur. Les noms de marques cités (Mistral AI, OpenAI, etc.) appartiennent à leurs propriétaires et sont cités à titre d'information.</p>
+  </div>
+</main>
+
+<footer class="foot pad">
+  <div class="wrap">
+    <span>© 2026 JUD</span>
+    <a href="#legal">Mentions légales et confidentialité</a>
+  </div>
+</footer>
+
 <script>
 (function(){
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -551,7 +590,7 @@ a.card:hover{border-color:var(--orange)}
   });
 
   /* ---------- routes ---------- */
-  const views = {accueil: document.getElementById('view-accueil'), mistral: document.getElementById('view-mistral')};
+  const views = {accueil: document.getElementById('view-accueil'), mistral: document.getElementById('view-mistral'), legal: document.getElementById('view-legal')};
   const navlink = document.getElementById('navlink');
   function route(){
     const key = (location.hash || '#accueil').slice(1);
@@ -560,6 +599,7 @@ a.card:hover{border-color:var(--orange)}
     navlink.hidden = name === 'accueil';
     hueT = 28; window.scrollTo(0,0);
     if (name === 'mistral') setupIssue();
+    if (window.goatcounter && window.goatcounter.count) window.goatcounter.count({path: '/' + name});
   }
   addEventListener('hashchange', route);
 
