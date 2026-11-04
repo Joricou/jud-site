@@ -599,8 +599,14 @@ a.card:hover{border-color:var(--orange)}
     navlink.hidden = name === 'accueil';
     hueT = 28; window.scrollTo(0,0);
     if (name === 'mistral') setupIssue();
-    if (window.goatcounter && window.goatcounter.count) window.goatcounter.count({path: '/' + name});
+    if (!track(name)) pendingView = name;
   }
+  let pendingView = null;
+  function track(n){
+    if (window.goatcounter && window.goatcounter.count){ window.goatcounter.count({path: '/' + n}); return true; }
+    return false;
+  }
+  addEventListener('load', () => { if (pendingView){ track(pendingView); pendingView = null; } });
   addEventListener('hashchange', route);
 
   /* ---------- numéro ---------- */
